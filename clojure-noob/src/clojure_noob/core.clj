@@ -79,3 +79,20 @@
         (if (has-matching-part? part)
           (recur remaining (conj final-parts (matching-part part)))
           (recur remaining final-parts))))))
+
+(defn my-reduce
+  [f init col]
+  (loop [remaining-col col result init]
+    (if (empty? remaining-col)
+      result
+      (let [[first & rest] remaining-col]
+        (recur rest (f result first))))))
+
+(defn reduce-symmeterize [asym-body-parts]
+  (reduce (fn [final-parts part]
+            (let [final-parts (conj final-parts part)]
+              (if (has-matching-part? part)
+                (conj final-parts (matching-part part))
+                final-parts)))
+          []
+          asym-body-parts))
