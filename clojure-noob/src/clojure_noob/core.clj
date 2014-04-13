@@ -96,3 +96,14 @@
                 final-parts)))
           []
           asym-body-parts))
+
+(defn hit
+  [asym-body-parts]
+  (let [sym-body-parts (symmetrize asym-body-parts)
+        total-body-size (reduce + (map :size sym-body-parts))
+        target (inc (rand total-body-size))]
+    (loop [[part & rest-parts] sym-body-parts
+           accumulated-size 0]
+      (if (> accumulated-size target)
+        part
+        (recur rest-parts (+ accumulated-size (:size part)))))))
