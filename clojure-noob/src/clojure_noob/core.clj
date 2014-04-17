@@ -108,3 +108,13 @@
         part
         (recur rest-parts (+ accumulated-size (:size part)))))))
 
+
+(def instant-computation 1)
+
+(defn vampire?
+  [record]
+  (instant-computation record))
+
+(defn vampire-related-details
+  [social-security-number]
+  (ten-second-computation social-security-number))
